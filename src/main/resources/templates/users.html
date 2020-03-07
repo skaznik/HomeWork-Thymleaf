@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+
+<body>
+<div class="container">
+    <h2>Użytkownicy</h2>
+    <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Adres e-mail</th>
+            <th>Kraj</th>
+            <th>Wiek</th>
+            <th>Czy aktywny</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.login}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.country}"></td>
+            <td th:text="|${#numbers.formatDecimal(user.age,1,2) } |"></td>
+            <td>
+                <span th:uk-icon="${user.available}? 'check':'close' "></span>
+            </td>
+            <td style="width:250px">
+                <a th:href="@{/users/edit/{id}(id=${user.id})}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>
+                <a th:href="@{/users/remove/{id}(id=${user.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{/users/new}"><input class="uk-button" type="button" value="Dodaj Usera" style="background-color: #32d296;color: white" > </a>
+    </div>
+
+
+</div>
+</body>
+</html>
